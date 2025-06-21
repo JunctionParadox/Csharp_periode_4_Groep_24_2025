@@ -1,4 +1,11 @@
+using Microsoft.EntityFrameworkCore;
+using Csharp_periode_4_Groep_24_2025.Data;
+
 namespace Csharp_periode_4_Groep_24_2025
+
+    //S1162353
+    //Delano Delgado
+    //https://github.com/JunctionParadox/Csharp_periode_4_Groep_24_2025
 {
     public class Program
     {
@@ -8,6 +15,12 @@ namespace Csharp_periode_4_Groep_24_2025
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            // Connect to database
+            builder.Services.AddDbContext<DbContext24>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MachineDefault"));
+            });
 
             var app = builder.Build();
 
