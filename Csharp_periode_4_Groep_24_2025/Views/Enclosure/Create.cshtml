@@ -1,0 +1,61 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Enclosure;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Create enclosure";
+}
+<html>
+<body>
+<h1>@ViewData["Title"]</h1>
+<div class="display-form">
+    <div>
+        <form method="post" >
+                <div>
+                    <label for="Name">Name</label>
+                    <input name="Name" />
+                </div>
+                <div>
+                    <label for="ClimateClass">Climate</label>
+                    <select name="ClimateClass">
+                        <option value="" selected disabled hidden> Select an option</option>
+                        @foreach (var climate in Html.GetEnumSelectList<Climate>())
+                        {
+                            <option value=@climate.Value>@climate.Text</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label>Habitat Types:   </label>
+                    @foreach (var habitat in Enum.GetValues(typeof(HabitatTypes)))
+                    {
+                        <input type="checkbox" id="@habitat" name="HabitatType" value="@habitat" />
+                        <label>@habitat</label>
+                    }
+                </div>
+                <div>
+                    <label for="Security">Security level</label>
+                    <select name="Security">
+                       <option value="" selected disabled hidden> Select an option</option>
+                        @foreach (var security in Html.GetEnumSelectList<SecurityLevel>())
+                        {
+                            <option value=@security.Value>@security.Text</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label for="Size">Size (square meters)</label>
+                    <input name="Size" />
+                </div>
+
+                <div>
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+</body>
+</html>

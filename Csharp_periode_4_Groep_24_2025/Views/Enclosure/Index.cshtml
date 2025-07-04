@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Csharp_periode_4_Groep_24_2025.Models.Enclosure>
+@{
+    ViewData["Title"] = "Enclosure page";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Enclosure home page hahahhaahaha.</p>
+    <p>
+        <a asp-action="create">Create New</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>Enclosure name</th>
+            <th>Climate</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClimateClass)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -20,3 +20,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.display-form {
+    border: 2px;
+    background: #A0A0A0;
+    max-width: 700px;
+}
+
+.display-info {
+    border: 2px;
+    border-radius: 25px;
+    background: #808080;
+    max-width: 500px;
+}
+
+.image-display {
+    float: right
+}

@@ -23,6 +23,11 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return View();
         }
 
+        public IActionResult Enclosure()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
