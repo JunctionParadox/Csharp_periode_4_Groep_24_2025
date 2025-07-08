@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Csharp_periode_4_Groep_24_2025.Models.Animal>
+@{
+    ViewData["Title"] = "Animal page";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Animal home page.</p>
+    <p>
+        <a asp-action="create">Create New</a>
+    </p>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Species</th>
+            <th>Day/behaviour</th>
+            <th>Enclosure</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelitem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Species)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity)
+                </td>
+                <td>
+                    @if (item.Enclosure != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Enclosure.Name)
+                    }
+                    else {
+                        @Html.DisplayText("Unassigned");
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

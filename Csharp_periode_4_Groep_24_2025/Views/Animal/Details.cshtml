@@ -1,0 +1,45 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Animal;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Animal details";
+}
+
+<div class="display-info">
+    <h1 class="display-paragraph">
+        @Html.DisplayFor(model => model.Name)
+    </h1>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Id)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Species)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.SizeClass)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Diet)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Activity)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Prey)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.SpaceRequirement)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.SecurityRequirement)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Category)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Enclosure)
+    </p>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
