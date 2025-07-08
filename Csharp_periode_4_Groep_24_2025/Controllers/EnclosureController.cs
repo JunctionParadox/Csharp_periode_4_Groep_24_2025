@@ -73,15 +73,48 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return View(enclosure);
         }
 
-        [HttpPost("api/[controller]/{id:int}")]
+        [HttpGet("api/[controller]/{id:int}/edit")]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var enclosure = await _context.Enclosure
+                 .AsNoTracking()
+                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (enclosure == null)
+            {
+                return NotFound();
+            }
+            PopulateAnimalDropDownList();
+            return View(enclosure);
+        }
+
+        [HttpPost("api/[controller]/{id:int}/edit")]
         [Consumes("application/x-www-form-urlencoded")]
-        public async Task<IActionResult> Edit(int? id, [Bind("Name", "ClimateClass", "HabitatType", "Security", "Size")] Enclosure enclosure)
+        public async Task<IActionResult> Edit(int? id, [Bind("Name", "ClimateClass", "HabitatType", "Security", "Size")] Enclosure enclosure, int? animalId)
         {
             if (id == null)
             {
                 return NotFound();
             }
             var target = await _context.Enclosure.FirstOrDefaultAsync(z => z.Id == id);
+            if (target == null)
+            {
+                return NotFound();
+            }
+            var animal = await _context.Animal.FindAsync(animalId);
+            if (animal == null)
+            {
+                return NotFound("Animal not found");
+            }
+            if (!target.Animals.Contains(animal))
+            {
+                target.Animals.Add(animal);
+            }
             if (await TryUpdateModelAsync<Enclosure>(target, "", z => z.Name, z => z.ClimateClass, z => z.HabitatType, z => z.Security, z => z.Size))
             {
                 try
@@ -98,20 +131,45 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
 
         }
 
-        [HttpDelete("api/[controller]/{id:int}")]
+        [HttpGet("api/[controller]/{id:int}/delete")]
         public async Task<IActionResult> Delete (int? id, bool? saveChangesError = false)
         {
             if (id == null)
             {
                 return NotFound();
             }
-
-            var enclosure = await _context.Enclosure
+            var target = await _context.Enclosure
                 .AsNoTracking()
                 .FirstOrDefaultAsync(z => z.Id == id);
-            if (enclosure == null)
+            if (target == null)
             {
                 return NotFound();
+            }
+            if (saveChangesError.GetValueOrDefault())
+            {
+                ViewData["ErrorMessage"] =
+                    "Delete failed. Please try again";
+            }
+
+            return View(target);
+        }
+
+        [HttpPost("api/[controller]/{id:int}/delete")]
+        public async Task<IActionResult> ExecuteDeletion (int? id, bool? saveChangesError = false)
+        {
+            var target = await _context.Enclosure.FindAsync(id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            try
+            {
+                _context.Enclosure.Remove(target);
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateException)
+            {
+                return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
 
             if (saveChangesError.GetValueOrDefault())
@@ -119,7 +177,17 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
                 ViewData["Errormessage"] = "Failed to delete";
             }
 
-            return View(enclosure);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private void PopulateAnimalDropDownList(object? selectedAnimal = null)
+        {
+            var animalQuery = _context.Animal
+                                    .OrderBy(d => d.Name)
+                                    .AsNoTracking()
+                                    .ToList();
+
+            ViewBag.AnimalId = new SelectList(animalQuery, "Id", "Name", selectedAnimal);
         }
     }
 }

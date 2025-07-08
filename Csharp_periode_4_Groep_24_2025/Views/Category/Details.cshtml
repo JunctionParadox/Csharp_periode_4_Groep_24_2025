@@ -18,8 +18,17 @@
         <li>@animal.Name</li>
     }
     </ul>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+</div>
+<div class="display-options">
+    <ul>
+        <li><a asp-action="Delete" asp-route-id="@Model.Id">Delete category</a></li>
+        <li><a asp-action="Edit" asp-route-id="@Model.Id">Edit category</a></li>
+        <li><a asp-action="Sunset" asp-route-id="@Model.Id">Sunset activity</a></li>
+        <li><a asp-action="Sunrise" asp-route-id="@Model.Id">Sunrise activity</a></li>
+        <li><a asp-action="FeedingTime" asp-route-id="@Model.Id">Check food requirements</a></li>
+        <li><a asp-action="CheckConstraints" asp-route-id="@Model.Id">Check constraints</a></li>
+    </ul>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>

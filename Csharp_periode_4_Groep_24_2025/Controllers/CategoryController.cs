@@ -78,16 +78,16 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
                 return NotFound();
             }
 
-            var animal = await _context.Category
+            var category = await _context.Category
                  .AsNoTracking()
                  .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (animal == null)
+            if (category == null)
             {
                 return NotFound();
             }
             PopulateAnimalDropDownList();
-            return View(animal);
+            return View(category);
         }
 
         [HttpPost("api/[controller]/{id:int}/edit")]
@@ -112,8 +112,10 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             {
                 return NotFound("Animal not found");
             }
-
-            target.Animals.Add(animal);
+            if (!target.Animals.Contains(animal))
+            {
+                target.Animals.Add(animal);
+            }
             if (await TryUpdateModelAsync(target, "", z => z.Name, z => z.Animals))
             {
                 try
@@ -188,14 +190,6 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
                                     .ToList();
 
             ViewBag.AnimalId = new SelectList(animalQuery, "Id", "Name", selectedAnimal);
-        }
-
-        private Task<List<Animal>> GetAnimalList(int id)
-        {
-            var animalQuery = _context.Animal
-                                .Where(z => z.CategoryId == id)
-                                .ToListAsync();
-            return animalQuery;
         }
     }
 }

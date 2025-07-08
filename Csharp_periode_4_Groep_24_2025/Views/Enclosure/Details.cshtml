@@ -30,74 +30,23 @@
     <p class="display-paragraph">
         @Html.DisplayFor(model => model.Size)
     </p>
+    <ul>
+        @foreach (var animal in Model.Animals)
+        {
+            <li>@animal.Name</li>
+        }
+    </ul>
 </div>
-<div class="display-form">
-    <div>
-        <form method="post">
-            <div>
-                <label for="Name">Name</label>
-                <input name="Name" value="@Model.Name" />
-            </div>
-            <div>
-                <label for="ClimateClass">Climate</label>
-                <select name="ClimateClass">
-                    @foreach (var item in Html.GetEnumSelectList<Climate>())
-                    {
-                        if ((int)Model.ClimateClass == Int32.Parse(item.Value))
-                        {
-                            <option selected value=@item.Value>@item.Text</option>
-                        }
-                        else
-                        {
-                            <option value=@item.Value>@item.Text</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div>
-                <label>Habitat Types:   </label>
-                @foreach (var habitat in Enum.GetValues<HabitatTypes>())
-                {
-                    if ((((byte)Model.HabitatType) & ((byte)habitat)) != 0)
-                    {
-                        <input checked type="checkbox" id="@habitat" name="HabitatType" value="@habitat" />
-                        <label>@habitat</label>
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="@habitat" name="HabitatType" value="@habitat" />
-                        <label>@habitat</label>
-                    }
-                }
-            </div>
-            <div>
-                <label for="Security">Security level</label>
-                <select name="Security">
-                    @foreach (var security in Html.GetEnumSelectList<SecurityLevel>())
-                    {
-                        if ((int)Model.Security == Int32.Parse(security.Value))
-                        {
-                            <option selected value=@security.Value>@security.Text</option>
-                        }
-                        else
-                        {
-                            <option value=@security.Value>@security.Text</option>
-                        }
-                    }
-                </select>
-            </div>
-            <div>
-                <label for="Size">Size (square meters)</label>
-                <input name="Size" value="@Model.Size" />
-            </div>
-
-            <div>
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+<div class="display-options">
+    <ul>
+        <li><a asp-action="Delete" asp-route-id="@Model.Id">Delete enclosure</a></li>
+        <li><a asp-action="Edit" asp-route-id="@Model.Id">Edit enclosure</a></li>
+        <li><a asp-action="Sunset" asp-route-id="@Model.Id">Sunset activity</a></li>
+        <li><a asp-action="Sunrise" asp-route-id="@Model.Id">Sunrise activity</a></li>
+        <li><a asp-action="FeedingTime" asp-route-id="@Model.Id">Check food requirements</a></li>
+        <li><a asp-action="CheckConstraints" asp-route-id="@Model.Id">Check constraints</a></li>
+    </ul>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>

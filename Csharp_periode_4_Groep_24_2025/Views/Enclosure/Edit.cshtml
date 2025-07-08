@@ -1,0 +1,82 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Enclosure;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+<div class="display-form">
+    <div>
+        <form method="post">
+            <div>
+                <h1>Edit info</h1>
+            </div>
+            <div>
+                <label for="Name">Name</label>
+                <input name="Name" value="@Model.Name" />
+            </div>
+            <div>
+                <label for="ClimateClass">Climate</label>
+                <select name="ClimateClass">
+                    @foreach (var item in Html.GetEnumSelectList<Climate>())
+                    {
+                        if ((int)Model.ClimateClass == Int32.Parse(item.Value))
+                        {
+                            <option selected value=@item.Value>@item.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@item.Value>@item.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <label>Habitat Types:   </label>
+                @foreach (var habitat in Enum.GetValues<HabitatTypes>())
+                {
+                    if ((((byte)Model.HabitatType) & ((byte)habitat)) != 0)
+                    {
+                        <input checked type="checkbox" id="@habitat" name="HabitatType" value="@habitat" />
+                        <label>@habitat</label>
+                    }
+                    else
+                    {
+                        <input type="checkbox" id="@habitat" name="HabitatType" value="@habitat" />
+                        <label>@habitat</label>
+                    }
+                }
+            </div>
+            <div>
+                <label for="Security">Security level</label>
+                <select name="Security">
+                    @foreach (var security in Html.GetEnumSelectList<SecurityLevel>())
+                    {
+                        if ((int)Model.Security == Int32.Parse(security.Value))
+                        {
+                            <option selected value=@security.Value>@security.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@security.Value>@security.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <label for="Size">Size (square meters)</label>
+                <input name="Size" value="@Model.Size" />
+            </div>
+            <div>
+                <label asp-for"Animals">Add a animal to enclosure</label>
+                <select name="animalId" asp-items="ViewBag.AnimalId">
+                    <option value="">-- Select Animal --</option>
+                </select>
+            </div>
+
+            <div>
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
