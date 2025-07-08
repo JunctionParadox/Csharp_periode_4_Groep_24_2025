@@ -1,0 +1,25 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Category;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Category details";
+}
+
+<div class="display-info">
+    <h1 class="display-paragraph">
+        @Html.DisplayFor(model => model.Name)
+    </h1>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Id)
+    </p>
+    <ul>
+    @foreach (var animal in Model.Animals)
+    {
+        <li>@animal.Name</li>
+    }
+    </ul>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
