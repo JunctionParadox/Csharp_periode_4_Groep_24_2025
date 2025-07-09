@@ -170,7 +170,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
                             break;
                         }
                     }
-                    if (animal.Enclosure != null)
+                    if (animal.Enclosure == null)
                     {
                         var replacement = new Enclosure { Name = $"Placeholder {count}", ClimateClass = Climate.None, HabitatType = HabitatTypes.None, Security = animal.SecurityRequirement, Size = animal.SpaceRequirement };
                         _context.Enclosure.Add(replacement);
@@ -182,7 +182,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
                 }
             }
             try {
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             catch (DbUpdateException)
             {
