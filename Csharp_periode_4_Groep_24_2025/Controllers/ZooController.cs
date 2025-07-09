@@ -8,8 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Csharp_periode_4_Groep_24_2025.Controllers
 {
-    //Het oorspronkelijke idee was om alle logica hierin te itereren en dan via een ViewBag door te sturen, echter door wat complicaties is een groot gedeelte
-    //van de logica naar de .cshtml pages zelf opgeschoven
+    //Het idee is dat zoo controllers globale functies kunnen aansturen
+    //En dus niet gekoppeld zijn aan een object zelf
+    //Zoo functies zijn ook allemaal beschikbaar vanuit home page
     public class ZooController : Controller, ICheckConstraints, IDayNightCycle, IFeedingTime
     {
         private readonly DbContext24 _context;
@@ -22,6 +23,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
         }
 
         [HttpGet("api/[controller]/sunset")]
+        //De functie stelt een lijst van commentaar op voor elke animal die in de database bestaat
         public async Task<IActionResult> Sunset(int? id = null)
         {
             var result = _context.Animal.ToList();
@@ -49,6 +51,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
         }
 
         [HttpGet("api/[controller]/sunrise")]
+        //De functie stelt een lijst van commentaar op voor elke animal die in de database bestaat
         public async Task<IActionResult> Sunrise(int? id = null)
         {
             var result = _context.Animal.ToList();
@@ -76,6 +79,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
         }
 
         [HttpGet("api/[controller]/feedingtime")]
+        //De functie stelt een lijst van commentaar op voor elke animal die in de database bestaat
         public async Task<IActionResult> FeedingTime(int? id = null)
         {
             var result = _context.Animal.ToList();
@@ -113,6 +117,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
         }
 
         [HttpPost("api/[controller]/automatic")]
+        //Checked of de gebruiker het vinkje heeft aangechecked dat alle bestaande enclosures vernietigd
         public async Task<IActionResult> AutoAssign(string reset)
         {
             if (reset == "on")
@@ -127,6 +132,8 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
         }
 
         [HttpGet("api/[controller]/check")]
+        //Voor elke animal wordt de funcite CheckAnimalConstraints() invoked
+        //Hierbij wordt een meegegeven lijst gepopuleerd met commentaar
         public async Task<IActionResult> CheckConstraints(int? id = null)
         {
             var result = _context.Animal.Include(z => z.Enclosure)
@@ -146,6 +153,9 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return View(commentary);
         }
 
+        //De functie checked of een dier al een enclosure heeft
+        //Zo nee, wordt een bestaande enclosure toegewezen
+        //In het geval er niet genoeg enclosures zijn wordt een nieuwe aangemaakt
         private async void AutoAssignDefault()
         {
             var animals = _context.Animal.Include(z => z.Enclosure)
@@ -190,6 +200,10 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             }
         }
 
+        //De functie gebruikt een queue om een voor een alle bestaande queues te vernietigen
+        //Door Dequeue() onstaat er geen complicaties met een verwijderde items in een collectie hebben
+        //Zoals ik bij een foreach() implementatie ervaarde
+        //Daarna creerd die een nieuwe enclosure voor elke animal
         private async void AutoAssignReset()
         {
             var enclosures = _context.Enclosure.Include(z => z.Animals).ToList();

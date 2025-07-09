@@ -191,6 +191,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             ViewBag.AnimalId = new SelectList(animalQuery, "Id", "Name", selectedAnimal);
         }
 
+        //Returned een lijst van opmerkingen, een per animal in enclosure
         [HttpGet("api/[controller]/{id:int}/sunset")]
         public async Task<IActionResult> Sunset(int? id)
         {
@@ -229,6 +230,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return View(animalList);
         }
 
+        //Returned een lijst van opmerkingen, een per animal in enclosure
         [HttpGet("api/[controller]/{id:int}/sunrise")]
         public async Task<IActionResult> Sunrise(int? id)
         {
@@ -267,6 +269,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return View(animalList);
         }
 
+        //Returned een lijst van opmerkingen, een per animal in enclosure
         //Het idee is dat door Insert(0, string) te gebruiken, alle non-vegetarische dieren boven de vegetarische dieren worden gerangschikt
         [HttpGet("api/[controller]/{id:int}/feedingtime")]
         public async Task<IActionResult> FeedingTime(int? id)

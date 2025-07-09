@@ -190,6 +190,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Levert een dropdown list van animals
         private void PopulateAnimalDropDownList(object? selectedAnimal = null)
         {
             var animalQuery = _context.Animal

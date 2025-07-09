@@ -18,7 +18,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             _context = context;
             _logger = logger;
         }
-
+        //searchString zorgt voor een soort van filter functie waarbij per property wordt gekeken of die overeenkomt
         [HttpGet("api/[controller]")]
         public async Task<IActionResult> Index(string searchString)
         {
@@ -196,6 +196,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //Levert een dropdown list van alle bestaande categories
         private void PopulateCategoryDropDownList(object? selectedCategory = null)
         {
             var categoryQuery = _context.Category
@@ -206,6 +207,7 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
             ViewBag.CategoryId = new SelectList(categoryQuery, "Id", "Name", selectedCategory);
         }
 
+        //Levert een dropdown list van alle bestaande enclosures
         private void PopulateEnclosureDropDownList(object? selectedEnclosure = null)
         {
             var enclosureQuery = _context.Enclosure
