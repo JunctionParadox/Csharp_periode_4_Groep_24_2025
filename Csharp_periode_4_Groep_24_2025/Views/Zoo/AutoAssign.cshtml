@@ -1,0 +1,15 @@
+﻿@{
+	ViewData["Title"] = "Zoo auto assign";
+}
+
+<div class="display-info">
+	<form asp-action="AutoAssign">
+		<label for="reset">Do you want to wipe all enclosures?</label>
+		<input name="reset" type="Checkbox" />
+		<input type="submit" />
+	</form>
+
+	<div>
+		<a asp-action="Index" asp-controller="Home">Back to home page</a>
+	</div>
+</div>

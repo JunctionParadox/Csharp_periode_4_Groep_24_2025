@@ -1,0 +1,88 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Animal;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Create animal";
+}
+<html>
+<body>
+<h1>@ViewData["Title"]</h1>
+<div class="display-form">
+    <div>
+        <form asp-action="Create">
+                <div>
+                    <label asp-for="Name">Name</label>
+                    <input asp-for="Name" />
+                </div>
+                <div>
+                    <label asp-for="Species">Species</label>
+                    <input asp-for="Species" />
+                </div>
+                <select asp-for="CategoryId" asp-items="ViewBag.CategoryId">
+                    <option value="">-- Select Category --</option>
+                </select>
+                <div>
+                    <label asp-for="SizeClass">Size class</label>
+                    <select asp-for="SizeClass">
+                        <option value="" selected disabled hidden> Select an option</option>
+                        @foreach (var size in Html.GetEnumSelectList<Size>())
+                        {
+                            <option value=@size.Value>@size.Text</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Diet">Diet</label>
+                    <select asp-for="Diet">
+                        <option value="" selected disabled hidden> Select an option</option>
+                        @foreach (var diet in Html.GetEnumSelectList<DietaryClass>())
+                        {
+                            <option value=@diet.Value>@diet.Text</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Activity">Day/night behaviour</label>
+                    <select asp-for="Activity">
+                        <option value="" selected disabled hidden> Select an option</option>
+                        @foreach (var activity in Html.GetEnumSelectList<ActivityPattern>())
+                        {
+                            <option value=@activity.Value>@activity.Text</option>
+                        }
+                    </select>
+                </div>
+                <div>
+                    <label asp-for="Prey">Prey</label>
+                    <input asp-for="Prey" />
+                </div>
+                <div>
+                    <label asp-for="SpaceRequirement">Amount of space needed (square meters)</label>
+                    <input asp-for="SpaceRequirement" />
+                </div>
+                <label asp-for="Enclosure"></label>
+                <select asp-for="EnclosureId" asp-items="ViewBag.EnclosureId">
+                    <option value="">-- Select Enclosure --</option>
+                </select>
+                <div>
+                    <label asp-for="SecurityRequirement">Security level</label>
+                    <select asp-for="SecurityRequirement">
+                       <option value="" selected disabled hidden> Select an option</option>
+                        @foreach (var security in Html.GetEnumSelectList<SecurityLevel>())
+                        {
+                            <option value=@security.Value>@security.Text</option>
+                        }
+                    </select>
+                </div>
+
+                <div>
+                    <input type="submit" value="Create" />
+                </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+</body>
+</html>

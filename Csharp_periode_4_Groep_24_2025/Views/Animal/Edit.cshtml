@@ -1,0 +1,107 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Animal;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Enclosure details";
+}
+
+<div class="display-form">
+    <div>
+        <form asp-action="Edit">
+            <div>
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" value="@Model.Name" />
+            </div>
+            <div>
+                <label asp-for="Species">Species</label>
+                <input asp-for="Species" value="@Model.Species" />
+            </div>
+            <select asp-for="CategoryId" asp-items="ViewBag.CategoryId">
+                <option value="">-- Select Category --</option>
+            </select>
+            <div>
+                <label asp-for="SizeClass">Size classification</label>
+                <select asp-for="SizeClass">
+                    @foreach (var size in Html.GetEnumSelectList<Size>())
+                    {
+                        if ((int)Model.SizeClass == Int32.Parse(size.Value))
+                        {
+                            <option selected value=@size.Value>@size.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@size.Value>@size.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <label asp-for="Diet">Diet type</label>
+                <select asp-for="Diet">
+                    @foreach (var diet in Html.GetEnumSelectList<DietaryClass>())
+                    {
+                        if ((int)Model.SecurityRequirement == Int32.Parse(diet.Value))
+                        {
+                            <option selected value=@diet.Value>@diet.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@diet.Value>@diet.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <label asp-for="Activity">Day/night behaviour</label>
+                <select asp-for="Activity">
+                    @foreach (var activity in Html.GetEnumSelectList<ActivityPattern>())
+                    {
+                        if ((int)Model.SecurityRequirement == Int32.Parse(activity.Value))
+                        {
+                            <option selected value=@activity.Value>@activity.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@activity.Value>@activity.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div>
+                <label asp-for="Prey">Prey</label>
+                <input asp-for="Prey" value="@Model.Prey" />
+            </div>
+            <select asp-for="EnclosureId" asp-items="ViewBag.EnclosureId">
+                <option value="">-- Select Enclosure --</option>
+            </select>
+            <div>
+                <label asp-for="SpaceRequirement">Required living space (square meters)</label>
+                <input asp-for="SpaceRequirement" value="@Model.SpaceRequirement" />
+            </div>
+            <div>
+                <label asp-for="SecurityRequirement">Security level</label>
+                <select asp-for="SecurityRequirement">
+                    @foreach (var security in Html.GetEnumSelectList<SecurityLevel>())
+                    {
+                        if ((int)Model.SecurityRequirement == Int32.Parse(security.Value))
+                        {
+                            <option selected value=@security.Value>@security.Text</option>
+                        }
+                        else
+                        {
+                            <option value=@security.Value>@security.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div>
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>

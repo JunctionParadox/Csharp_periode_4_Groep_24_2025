@@ -1,0 +1,52 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Enclosure;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Enclosure details";
+}
+
+@{
+    string imgsrc = Url.Content("/images/" + Model.ClimateClass + ".jpg");
+}
+<div class="image-display">
+    <img src=@imgsrc height="400" width="500" />
+</div>
+<div class="display-info">
+    <h1 class="display-paragraph">
+        @Html.DisplayFor(model => model.Name)
+    </h1>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Id)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.ClimateClass)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.HabitatType)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Security)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Size)
+    </p>
+    <ul>
+        @foreach (var animal in Model.Animals)
+        {
+            <li>@animal.Name</li>
+        }
+    </ul>
+</div>
+<div class="display-options">
+    <ul>
+        <li><a asp-action="Delete" asp-route-id="@Model.Id">Delete enclosure</a></li>
+        <li><a asp-action="Edit" asp-route-id="@Model.Id">Edit enclosure</a></li>
+        <li><a asp-action="Sunset" asp-route-id="@Model.Id">Sunset activity</a></li>
+        <li><a asp-action="Sunrise" asp-route-id="@Model.Id">Sunrise activity</a></li>
+        <li><a asp-action="FeedingTime" asp-route-id="@Model.Id">Check food requirements</a></li>
+        <li><a asp-action="CheckConstraints" asp-route-id="@Model.Id">Check constraints</a></li>
+    </ul>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

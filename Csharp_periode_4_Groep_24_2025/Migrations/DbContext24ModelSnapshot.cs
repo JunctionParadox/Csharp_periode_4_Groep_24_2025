@@ -69,6 +69,68 @@ namespace Csharp_periode_4_Groep_24_2025.Migrations
                     b.HasIndex("EnclosureId");
 
                     b.ToTable("Animals", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Activity = (short)1,
+                            Diet = (short)3,
+                            Name = "Bear",
+                            Prey = "Fish",
+                            SecurityRequirement = (short)2,
+                            SizeClass = (short)5,
+                            SpaceRequirement = 300.0,
+                            Species = "Bear"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Activity = (short)1,
+                            Diet = (short)5,
+                            Name = "Eagle",
+                            Prey = "Fish",
+                            SecurityRequirement = (short)1,
+                            SizeClass = (short)4,
+                            SpaceRequirement = 50.0,
+                            Species = "Bird"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Activity = (short)3,
+                            Diet = (short)2,
+                            Name = "Salmon",
+                            Prey = "None",
+                            SecurityRequirement = (short)1,
+                            SizeClass = (short)3,
+                            SpaceRequirement = 120.0,
+                            Species = "Fish"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Activity = (short)1,
+                            Diet = (short)1,
+                            Name = "Wolf",
+                            Prey = "Deer",
+                            SecurityRequirement = (short)2,
+                            SizeClass = (short)5,
+                            SpaceRequirement = 300.0,
+                            Species = "Catlike"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Activity = (short)2,
+                            Diet = (short)5,
+                            Name = "Owl",
+                            Prey = "Fish",
+                            SecurityRequirement = (short)1,
+                            SizeClass = (short)4,
+                            SpaceRequirement = 200.0,
+                            Species = "Bird"
+                        });
                 });
 
             modelBuilder.Entity("Csharp_periode_4_Groep_24_2025.Models.Category", b =>
@@ -86,6 +148,23 @@ namespace Csharp_periode_4_Groep_24_2025.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fish"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Bird"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Mammal"
+                        });
                 });
 
             modelBuilder.Entity("Csharp_periode_4_Groep_24_2025.Models.Enclosure", b =>
@@ -115,6 +194,53 @@ namespace Csharp_periode_4_Groep_24_2025.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Enclosures", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClimateClass = (short)3,
+                            HabitatType = (short)2,
+                            Name = "Sigma",
+                            Security = (short)3,
+                            Size = 320.0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClimateClass = (short)1,
+                            HabitatType = (short)4,
+                            Name = "Delta",
+                            Security = (short)1,
+                            Size = 200.0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClimateClass = (short)2,
+                            HabitatType = (short)8,
+                            Name = "Epsilon",
+                            Security = (short)1,
+                            Size = 240.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClimateClass = (short)3,
+                            HabitatType = (short)8,
+                            Name = "Zeta",
+                            Security = (short)1,
+                            Size = 240.0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClimateClass = (short)0,
+                            HabitatType = (short)8,
+                            Name = "Gamma",
+                            Security = (short)1,
+                            Size = 320.0
+                        });
                 });
 
             modelBuilder.Entity("Csharp_periode_4_Groep_24_2025.Models.Animal", b =>

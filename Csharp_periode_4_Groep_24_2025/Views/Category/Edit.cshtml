@@ -1,0 +1,25 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Category;
+
+<div class="display-form">
+    <div>
+        <form asp-action="Edit">
+            <div>
+                <label for="Name">Name</label>
+                <input name="Name" value="@Model.Name" />
+            </div>
+            <div>
+                <label asp-for"Animals">Add a animal to category</label>
+                <select name="animalId" asp-items="ViewBag.AnimalId">
+                    <option value="">-- Select Animal --</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Edit" />
+            </div>
+        </form>
+
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

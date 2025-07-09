@@ -1,0 +1,20 @@
+﻿@model List<string>
+
+@{
+	ViewData["Title"] = "Food information enclosure";
+}
+
+<div class="display-info">
+	@if (Model.Any())
+	{
+		@foreach (string item in Model)
+		{
+			<ul>@item</ul>
+		}
+	}
+	else
+	{
+		<a>It seems that there are no animals in this enclosure yet, please consider adding some.</a>
+	}
+	<a asp-action="Index">Back to List</a>
+</div>

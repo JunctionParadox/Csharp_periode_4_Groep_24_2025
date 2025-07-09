@@ -1,0 +1,55 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Animal;
+@using Csharp_periode_4_Groep_24_2025.Data.Enum;
+
+@{
+    ViewData["Title"] = "Animal details";
+}
+
+<div class="display-info">
+    <h1 class="display-paragraph">
+        @Html.DisplayFor(model => model.Name)
+    </h1>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Id)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Species)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.SizeClass)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Diet)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Activity)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Prey)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.SpaceRequirement)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.SecurityRequirement)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Category)
+    </p>
+    <p class="display-paragraph">
+        @Html.DisplayFor(model => model.Enclosure)
+    </p>
+</div>
+<div class="display-options">
+    <ul>
+        <li><a asp-action="Delete" asp-route-id="@Model.Id">Delete animal</a></li>
+        <li><a asp-action="Edit" asp-route-id="@Model.Id">Edit animal</a></li>
+        <li><a asp-action="Sunset" asp-route-id="@Model.Id">Sunset activity</a></li>
+        <li><a asp-action="Sunrise" asp-route-id="@Model.Id">Sunrise activity</a></li>
+        <li><a asp-action="FeedingTime" asp-route-id="@Model.Id">Check food requirements</a></li>
+        <li><a asp-action="CheckConstraints" asp-route-id="@Model.Id">Check constraints</a></li>
+    </ul>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

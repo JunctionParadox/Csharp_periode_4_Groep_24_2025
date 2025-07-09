@@ -1,0 +1,17 @@
+﻿@model Csharp_periode_4_Groep_24_2025.Models.Animal;
+
+@{
+	ViewData["Title"] = "Sunrise";
+}
+
+<html>
+<body>
+	<div class="display-info">
+			<h1>@ViewBag.status</h1>
+		</div>
+	<div>
+		<a asp-action="Index">Back to List</a>
+		<a asp-action="Details" asp-route-id="@Model.Id">Back to Details</a>
+	</div>
+</body>
+</html>
