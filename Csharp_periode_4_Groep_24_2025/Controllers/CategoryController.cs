@@ -18,10 +18,18 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
         }
 
         [HttpGet("api/[controller]")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var result = _context.Category.Include(z => z.Animals);
-            return View(await result.ToListAsync());
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                var result = _context.Category.Include(z => z.Animals).Where(x => x.Name.Contains(searchString));
+                return View(await result.ToListAsync());
+            }
+            else
+            {
+                var result = _context.Category.Include(z => z.Animals);
+                return View(await result.ToListAsync());
+            }
         }
 
         [HttpGet("/api/[controller]/create")]

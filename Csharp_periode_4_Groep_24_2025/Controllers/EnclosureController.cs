@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Csharp_periode_4_Groep_24_2025.Models;
 using Csharp_periode_4_Groep_24_2025.Data;
+using Csharp_periode_4_Groep_24_2025.Data.Enum;
 using Microsoft.EntityFrameworkCore;
 using Csharp_periode_4_Groep_24_2025.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Csharp_periode_4_Groep_24_2025.Controllers
 {
-    public class EnclosureController : Controller
+    public class EnclosureController : Controller, IDayNightCycle, ICheckConstraints
     {
         private readonly DbContext24 _context;
         private readonly ILogger<EnclosureController> _logger;
@@ -188,6 +189,150 @@ namespace Csharp_periode_4_Groep_24_2025.Controllers
                                     .ToList();
 
             ViewBag.AnimalId = new SelectList(animalQuery, "Id", "Name", selectedAnimal);
+        }
+
+        [HttpGet("api/[controller]/{id:int}/sunset")]
+        public async Task<IActionResult> Sunset(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var target = await _context.Enclosure
+                .AsNoTracking()
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(z => z.Id == id);
+            if (target == null)
+            {
+                return NotFound();
+            }
+            List<string> animalList = new List<string>();
+            foreach(var animal in target.Animals)
+            {
+                if (animal.Activity == ActivityPattern.Diurnal)
+                {
+                    animalList.Add($"{animal.Name} is going to sleep.");
+                }
+                else if (animal.Activity == ActivityPattern.Nocturnal)
+                {
+                    animalList.Add($"{animal.Name} is going to awake from their slumber.");
+                }
+                else if (animal.Activity == ActivityPattern.Cathemeral)
+                {
+                    animalList.Add($"{animal.Name} is already awake.");
+                }
+                else
+                {
+                    animalList.Add($"No info could be found about the activity pattern of {animal.Name}, consider adding some in editing panel.");
+                }
+            }
+            return View(animalList);
+        }
+
+        [HttpGet("api/[controller]/{id:int}/sunrise")]
+        public async Task<IActionResult> Sunrise(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var target = await _context.Enclosure
+                .AsNoTracking()
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(z => z.Id == id);
+            if (target == null)
+            {
+                return NotFound();
+            }
+            List<string> animalList = new List<string>();
+            foreach (var animal in target.Animals)
+            {
+                if (animal.Activity == ActivityPattern.Nocturnal)
+                {
+                    animalList.Add($"{animal.Name} is going to sleep.");
+                }
+                else if (animal.Activity == ActivityPattern.Diurnal)
+                {
+                    animalList.Add($"{animal.Name} is going to awake from their slumber.");
+                }
+                else if (animal.Activity == ActivityPattern.Cathemeral)
+                {
+                    animalList.Add($"{animal.Name} is already awake.");
+                }
+                else
+                {
+                    animalList.Add($"No info could be found about the activity pattern of {animal.Name}, consider adding some in editing panel.");
+                }
+            }
+            return View(animalList);
+        }
+
+        //Het idee is dat door Insert(0, string) te gebruiken, alle non-vegetarische dieren boven de vegetarische dieren worden gerangschikt
+        [HttpGet("api/[controller]/{id:int}/feedingtime")]
+        public async Task<IActionResult> FeedingTime(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var target = await _context.Enclosure
+                .AsNoTracking()
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(z => z.Id == id);
+            if (target == null)
+            {
+                return NotFound();
+            }
+            List<string> animalList = new List<string>();
+            foreach (var animal in target.Animals)
+            {
+                if (animal.Diet == DietaryClass.Herbivore)
+                {
+                    animalList.Add($"{animal.Name} is a herbivore, they like to eat plants.");
+                }
+                else if (animal.Diet != DietaryClass.None && animal.Prey != null)
+                {
+                    animalList.Insert(0, $"{animal.Name} is a {animal.Diet}, they like to eat {animal.Prey}.");
+                }
+                else if (animal.Diet != DietaryClass.None)
+                {
+                    animalList.Insert(0, $"{animal.Name} is a {animal.Diet}, but we do not know their prey.");
+                }
+                else if (animal.Prey != null)
+                {
+                    animalList.Add($"{animal.Name} likes to eat {animal.Prey}.");
+                }
+                else
+                {
+                    animalList.Add($"{animal.Name} has no known diet or prey, please consider adding more info.");
+                }
+            }
+            return View(animalList);
+        }
+
+        [HttpGet("api/[controller]/{id:int}/check")]
+        public async Task<IActionResult> CheckConstraints(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var target = await _context.Enclosure
+                .AsNoTracking()
+                .Include(e => e.Animals)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (target == null)
+            {
+                return NotFound();
+            }
+            List<string> commentary = new List<string>();
+            foreach(var animal in target.Animals)
+            {
+                animal.CheckAnimalConstraints(commentary, target);
+            }
+            ViewBag.Id = id;
+            return View(commentary);
         }
     }
 }

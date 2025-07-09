@@ -2,10 +2,12 @@
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Csharp_periode_4_Groep_24_2025.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -70,6 +72,40 @@ namespace Csharp_periode_4_Groep_24_2025.Migrations
                         column: x => x.EnclosureId,
                         principalTable: "Enclosures",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Animals",
+                columns: new[] { "Id", "Activity", "CategoryId", "Diet", "EnclosureId", "Name", "Prey", "SecurityRequirement", "SizeClass", "SpaceRequirement", "Species" },
+                values: new object[,]
+                {
+                    { 1, (short)1, null, (short)3, null, "Bear", "Fish", (short)2, (short)5, 300.0, "Bear" },
+                    { 2, (short)1, null, (short)5, null, "Eagle", "Fish", (short)1, (short)4, 50.0, "Bird" },
+                    { 3, (short)3, null, (short)2, null, "Salmon", "None", (short)1, (short)3, 120.0, "Fish" },
+                    { 4, (short)1, null, (short)1, null, "Wolf", "Deer", (short)2, (short)5, 300.0, "Catlike" },
+                    { 5, (short)2, null, (short)5, null, "Owl", "Fish", (short)1, (short)4, 200.0, "Bird" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Fish" },
+                    { 2, "Bird" },
+                    { 3, "Mammal" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Enclosures",
+                columns: new[] { "Id", "ClimateClass", "HabitatType", "Name", "Security", "Size" },
+                values: new object[,]
+                {
+                    { 1, (short)3, (short)2, "Sigma", (short)3, 320.0 },
+                    { 2, (short)1, (short)4, "Delta", (short)1, 200.0 },
+                    { 3, (short)2, (short)8, "Epsilon", (short)1, 240.0 },
+                    { 4, (short)3, (short)8, "Zeta", (short)1, 240.0 },
+                    { 5, (short)0, (short)8, "Gamma", (short)1, 320.0 }
                 });
 
             migrationBuilder.CreateIndex(

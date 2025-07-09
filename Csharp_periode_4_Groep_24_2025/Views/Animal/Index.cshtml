@@ -10,13 +10,28 @@
     <p>
         <a asp-action="create">Create New</a>
     </p>
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                <label>Find by name: <input type="text" name="SearchString" /></label>
+                <input type="submit" value="Search" class="btn btn-default" />
+                <a asp-action="Index">Back to Full List</a>
+            </p>
+        </div>
+    </form>
     <table class="table">
         <tr>
             <th>Id</th>
             <th>Name</th>
             <th>Species</th>
+            <th>Prey</th>
             <th>Day/behaviour</th>
+            <th>Required security level</th>
+            <th>Size classifcation</th>
+            <th>Required space</th>
+            <th>Category</th>
             <th>Enclosure</th>
+            <th></th>
         </tr>
         @foreach (var item in Model)
         {
@@ -31,7 +46,32 @@
                     @Html.DisplayFor(modelItem => item.Species)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Prey)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Activity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecurityRequirement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SizeClass)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SpaceRequirement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Activity)
+                </td>
+                <td>
+                    @if (item.Category != null)
+                    {
+                        @Html.DisplayFor(modelItem => item.Category.Name)
+                    }
+                    else
+                    {
+                        @Html.DisplayText("Unassigned");
+                    }
                 </td>
                 <td>
                     @if (item.Enclosure != null)

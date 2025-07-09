@@ -20,7 +20,13 @@ namespace Csharp_periode_4_Groep_24_2025
             builder.Services.AddDbContext<DbContext24>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("MachineDefault"));
+                options.EnableSensitiveDataLogging();
             });
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+
 
             var app = builder.Build();
 
@@ -35,13 +41,16 @@ namespace Csharp_periode_4_Groep_24_2025
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/");
 
             app.Run();
         }

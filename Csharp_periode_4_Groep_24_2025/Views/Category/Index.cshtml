@@ -10,10 +10,20 @@
     <p>
         <a asp-action="create">Create New</a>
     </p>
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                <label>Find by name: <input type="text" name="SearchString" /></label>
+                <input type="submit" value="Search" class="btn btn-default" />
+                <a asp-action="Index">Back to Full List</a>
+            </p>
+        </div>
+    </form>
     <table class="table">
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th></th>
         </tr>
         @foreach (var item in Model)
         {
